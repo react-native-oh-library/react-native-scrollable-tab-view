@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scrollable-tab-view",
+  "name": "@react-native-oh-tpl/react-native-scrollable-tab-view",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
@@ -17,10 +17,14 @@
     "react-native",
     "ios",
     "tab",
-    "scrollable"
+    "scrollable",
+    "harmony"
   ],
   "author": "Brent Vatne",
   "license": "MIT",
+  "harmony": {
+    "alias": "@react-native-oh-tpl/react-native-scrollable-tab-view"
+  },
   "bugs": {
     "url": "https://github.com/brentvatne/react-native-scrollable-tab-view/issues"
   },
@@ -29,7 +33,7 @@
   },
   "homepage": "https://github.com/brentvatne/react-native-scrollable-tab-view#readme",
   "dependencies": {
-    "@react-native-community/viewpager": "3.3.0",
+    "@react-native-community/viewpager": "5.0.11",
     "create-react-class": "^15.6.2",
     "deprecated-react-native-prop-types": "^2.3.0",
     "prop-types": "^15.6.0",
