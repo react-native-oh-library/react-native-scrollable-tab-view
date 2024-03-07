@@ -1,9 +1,6 @@
-const React = require('react');
-const ReactNative = require('react-native');
-const DeprecatedPropTypes = require('deprecated-react-native-prop-types');
-const PropTypes = require('prop-types');
-const createReactClass = require('create-react-class');
-const {
+import React from "react";
+import {
+  ViewPropTypes,
   View,
   Animated,
   StyleSheet,
@@ -11,8 +8,13 @@ const {
   Text,
   Platform,
   Dimensions,
-} = ReactNative;
-const Button = Platform.OS === 'ios' || Platform.OS === 'harmony' ? require('./Button.ios.js') : require('./Button.android.js');
+} from "react-native";
+import PropTypes from "prop-types";
+import DeprecatedPropTypes from "deprecated-react-native-prop-types";
+import createReactClass from "create-react-class";
+import ButtonIos from "././Button.ios.js"; 
+import ButtonAndroid from "././Button.android.js"; 
+const Button = Platform.OS === 'ios' || Platform.OS === 'harmony' ? ButtonIos : ButtonAndroid;
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -227,7 +229,7 @@ const ScrollableTabBar = createReactClass({
   },
 });
 
-module.exports = ScrollableTabBar;
+export default ScrollableTabBar;
 
 const styles = StyleSheet.create({
   tab: {

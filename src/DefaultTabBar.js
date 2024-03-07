@@ -1,15 +1,18 @@
-const React = require('react');
-const ReactNative = require('react-native');
-const DeprecatedPropTypes = require('deprecated-react-native-prop-types');
-const PropTypes = require('prop-types');
-const createReactClass = require('create-react-class');
-const {
+
+import React from "react";
+import {
+  ViewPropTypes,
   StyleSheet,
   Text,
   View,
   Animated,
-} = ReactNative;
-const Button = Platform.OS === 'ios' || Platform.OS === 'harmony' ? require('./Button.ios.js') : require('./Button.android.js');
+ } from "react-native";
+import PropTypes from "prop-types";
+import createReactClass from "create-react-class";
+import DeprecatedPropTypes from "deprecated-react-native-prop-types";
+import ButtonIos from "././Button.ios.js"; 
+import ButtonAndroid from "././Button.android.js"; 
+const Button = Platform.OS === 'ios' || Platform.OS === 'harmony' ? ButtonIos : ButtonAndroid;
 
 const DefaultTabBar = createReactClass({
   propTypes: {
@@ -114,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = DefaultTabBar;
+export default DefaultTabBar;

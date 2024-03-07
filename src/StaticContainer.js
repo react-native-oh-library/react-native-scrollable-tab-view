@@ -1,4 +1,4 @@
-const React = require('react');
+import React from "react";
 
 class StaticContainer extends React.Component {
 
@@ -16,4 +16,4 @@ class StaticContainer extends React.Component {
 
 }
 
-module.exports = StaticContainer;
+export default StaticContainer;

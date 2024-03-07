@@ -1,9 +1,6 @@
-const React = require('react');
-const ReactNative = require('react-native');
-const DeprecatedPropTypes = require('deprecated-react-native-prop-types');
-const createReactClass = require('create-react-class');
-const PropTypes = require('prop-types');
-const {
+import React, { Component } from "react";
+import {
+  ViewPropTypes,
   Dimensions,
   View,
   Animated,
@@ -11,15 +8,19 @@ const {
   Platform,
   StyleSheet,
   InteractionManager,
-} = ReactNative;
+ } from "react-native";
+import PropTypes from "prop-types";
+import DeprecatedPropTypes from "deprecated-react-native-prop-types";
+import createReactClass from "create-react-class";
 
-const ViewPagerAndroid = require('@react-native-community/viewpager');
-const TimerMixin = require('react-timer-mixin');
-const ViewPager = require('@react-native-community/viewpager');
+import ViewPagerAndroid from "@react-native-community/viewpager";
+import TimerMixin from "react-timer-mixin";
+import ViewPager from "@react-native-community/viewpager";
 
-const SceneComponent = require('./SceneComponent');
-const DefaultTabBar = require('./DefaultTabBar');
-const ScrollableTabBar = require('./ScrollableTabBar');
+import SceneComponent from "./SceneComponent";
+import DefaultTabBar from "./DefaultTabBar";
+import ScrollableTabBar from "./ScrollableTabBar"; 
+
 
 const AnimatedViewPagerAndroid = Platform.OS === 'ios' || Platform.OS === 'harmony' ?
   undefined :
@@ -404,7 +405,7 @@ const ScrollableTabView = createReactClass({
   },
 });
 
-module.exports = ScrollableTabView;
+export default ScrollableTabView;
 
 const styles = StyleSheet.create({
   container: {
