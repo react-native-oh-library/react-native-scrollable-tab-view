@@ -9,7 +9,7 @@ const {
   View,
   Animated,
 } = ReactNative;
-const Button = Platform.OS === 'ios' || Platform.OS === 'harmony' ? require('./Button.ios.js') : require('./Button.android.js');
+const Button = Platform.OS === 'ios' ? require('./Button.ios.js') : require('./Button.android.js');
 
 const DefaultTabBar = createReactClass({
   propTypes: {
