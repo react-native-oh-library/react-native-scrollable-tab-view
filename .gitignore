@@ -4,3 +4,4 @@ node_modules/
 .idea/
 .reploy
 .DS_Store
+lib
