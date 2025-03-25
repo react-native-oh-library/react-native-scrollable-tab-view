@@ -169,7 +169,9 @@ const ScrollableTabView = createReactClass({
 
   updateSceneKeys({ page, children = this.props.children, callback = () => {}, }) {
     let newKeys = this.newSceneKeys({ previousKeys: this.state.sceneKeys, currentPage: page, children, });
-    this.setState({currentPage: page, sceneKeys: newKeys, }, callback);
+    this.setState({currentPage: page, sceneKeys: newKeys });
+    // fixed: 修复切换tab会闪烁的问题，callback中不依赖于最新的state，因此可以不用放在setState回调中
+    callback?.()
   },
 
   newSceneKeys({ previousKeys = [], currentPage = 0, children = this.props.children, }) {
