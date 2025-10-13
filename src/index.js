@@ -98,6 +98,18 @@ const ScrollableTabView = createReactClass({
         callListeners(positionAndroidValue + offsetAndroidValue);
       });
       offsetAndroid.addListener(({ value, }) => {
+
+        // 矫正异常回调参数
+        if(!!Math.round(Math.abs(value-offsetAndroidValue))){
+          if(!Math.round(value)){
+            // 右切
+            positionAndroidValue++;
+          }else{
+            // 左切
+            positionAndroidValue--;
+          }
+        }
+
         offsetAndroidValue = value;
         callListeners(positionAndroidValue + offsetAndroidValue);
       });
