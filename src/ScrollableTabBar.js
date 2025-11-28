@@ -49,6 +49,7 @@ const ScrollableTabBar = createReactClass({
 
   getInitialState() {
     this._tabsMeasurements = [];
+    this._tabContainerRef = null;
     return {
       _leftTabUnderline: new Animated.Value(0),
       _widthTabUnderline: new Animated.Value(0),
@@ -190,7 +191,7 @@ const ScrollableTabBar = createReactClass({
       >
         <View
           style={[styles.tabs, {width: this.state._containerWidth, }, this.props.tabsContainerStyle, ]}
-          ref={'tabContainer'}
+          ref={(ref) => { this._tabContainerRef = ref; }}
           onLayout={this.onTabContainerLayout}
         >
           {this.props.tabs.map((name, page) => {
