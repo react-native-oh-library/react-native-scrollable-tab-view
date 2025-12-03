@@ -73,7 +73,7 @@ const ScrollableTabView = createReactClass({
     let positionAndroid;
     let offsetAndroid;
 
-    if (Platform.OS === 'ios' || Platform.OS === 'harmony') {
+    if (Platform.OS === 'ios') {
       scrollXIOS = new Animated.Value(this.props.initialPage * containerWidth);
       const containerWidthAnimatedValue = new Animated.Value(containerWidth);
       // Need to call __makeNative manually to avoid a native animated bug. See
@@ -88,19 +88,7 @@ const ScrollableTabView = createReactClass({
     } else {
       positionAndroid = new Animated.Value(this.props.initialPage);
       offsetAndroid = new Animated.Value(0);
-      scrollValue = Animated.add(positionAndroid, offsetAndroid);
-
-      const callListeners = this._polyfillAnimatedValue(scrollValue);
-      let positionAndroidValue = this.props.initialPage;
-      let offsetAndroidValue = 0;
-      positionAndroid.addListener(({ value, }) => {
-        positionAndroidValue = value;
-        callListeners(positionAndroidValue + offsetAndroidValue);
-      });
-      offsetAndroid.addListener(({ value, }) => {
-        offsetAndroidValue = value;
-        callListeners(positionAndroidValue + offsetAndroidValue);
-      });
+      scrollValue = new Animated.Value(this.props.initialPage);
     }
 
     return {
@@ -125,16 +113,13 @@ const ScrollableTabView = createReactClass({
   },
 
   componentWillUnmount() {
-    if (Platform.OS === 'ios' || Platform.OS === 'harmony') {
+    if (Platform.OS === 'ios') {
       this.state.scrollXIOS.removeAllListeners();
-    } else {
-      this.state.positionAndroid.removeAllListeners();
-      this.state.offsetAndroid.removeAllListeners();
     }
   },
 
   goToPage(pageNumber) {
-    if (Platform.OS === 'ios' || Platform.OS === 'harmony') {
+    if (Platform.OS === 'ios') {
       const offset = pageNumber * this.state.containerWidth;
       if (this.scrollView) {
         this.scrollView.scrollTo({x: offset, y: 0, animated: !this.props.scrollWithoutAnimation, });
@@ -226,7 +211,7 @@ const ScrollableTabView = createReactClass({
   },
 
   renderScrollableContent() {
-    if (Platform.OS === 'ios' || Platform.OS === 'harmony') {
+    if (Platform.OS === 'ios') {
       const scenes = this._composeScenes();
       return <Animated.ScrollView
         horizontal
@@ -260,18 +245,11 @@ const ScrollableTabView = createReactClass({
         onPageSelected={this._updateSelectedPage}
         keyboardDismissMode="on-drag"
         scrollEnabled={!this.props.locked}
-        onPageScroll={Animated.event(
-          [{
-            nativeEvent: {
-              position: this.state.positionAndroid,
-              offset: this.state.offsetAndroid,
-            },
-          }, ],
-          {
-            useNativeDriver: false,
-            listener: this._onScroll,
-          },
-        )}
+        onPageScroll={(e) => {
+          const { position, offset, } = e.nativeEvent;
+          this.state.scrollValue.setValue(position + offset);
+          this._onScroll(e);
+        }}
         ref={(scrollView) => { this.scrollView = scrollView; }}
         {...this.props.contentProps}
       >
@@ -324,7 +302,7 @@ const ScrollableTabView = createReactClass({
   },
 
   _onScroll(e) {
-    if (Platform.OS === 'ios' || Platform.OS === 'harmony') {
+    if (Platform.OS === 'ios') {
       const offsetX = e.nativeEvent.contentOffset.x;
       if (offsetX === 0 && !this.scrollOnMountCalled) {
         this.scrollOnMountCalled = true;
@@ -344,7 +322,7 @@ const ScrollableTabView = createReactClass({
       return;
     }
 
-    if (Platform.OS === 'ios' || Platform.OS === 'harmony') {
+    if (Platform.OS === 'ios') {
       const containerWidthAnimatedValue = new Animated.Value(width);
       // Need to call __makeNative manually to avoid a native animated bug. See
       // https://github.com/facebook/react-native/pull/14435
