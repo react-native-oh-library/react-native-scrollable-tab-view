@@ -140,6 +140,7 @@ const ScrollableTabView = createReactClass({
       page: pageNumber,
       callback: this._onChangeTab.bind(this, currentPage, pageNumber),
     });
+    this.tabWillChangeWithoutGesture = false;
   },
 
   renderTabBar(props) {
